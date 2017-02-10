@@ -16,6 +16,8 @@
 
 
     <bean id="audience" class="com.springinaction.springidol.Audience" />
+    <bean id="magician" class="com.springinaction.springidol.Magician"/>
+    <bean id="volunteer" class="com.springinaction.springidol.Volunteer" />
 
 <!--    <aop:config>
         <aop:pointcut id="performance" expression="execution(* com.springinaction.springidol.Performer.perform(..))and not bean(juggler)"/>
@@ -38,6 +40,18 @@
             <aop:around
                     pointcut-ref="performance2"
                     method="watchPerformance"/>
+        </aop:aspect>
+    </aop:config>
+
+    <aop:config>
+        <aop:aspect ref="magician">
+            <aop:pointcut id="thinking"
+                          expression="execution(* com.springinaction.springidol.Thinker.thinkOfSomething(String))
+                            and args(thoughts)" />
+            <aop:before
+                    pointcut-ref="thinking"
+                    method="interceptThoughts"
+                    arg-names="thoughts" />
         </aop:aspect>
     </aop:config>
 
