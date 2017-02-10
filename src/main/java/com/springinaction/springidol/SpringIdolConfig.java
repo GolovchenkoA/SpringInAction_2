@@ -27,7 +27,7 @@ public class SpringIdolConfig {
     }
 
     @Bean
-    private Poem sonnet29() {
+    public Poem sonnet29() {
         return new Sonnet29();
     }
 

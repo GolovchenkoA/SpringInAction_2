@@ -1,8 +1,12 @@
 package com.springinaction.springidol;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by головченко on 09.02.2017.
  */
+
+@Component
 public class Juggler implements Performer {
     private int beanBags = 3;
     public Juggler() {
