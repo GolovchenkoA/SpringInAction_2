@@ -17,22 +17,28 @@
 
     <bean id="audience" class="com.springinaction.springidol.Audience" />
 
-    <aop:config>
-        <aop:aspect ref="audience"> <!-- Ссылка на компонент audience -->
-            <aop:before pointcut=
-                                "execution(* com.springinaction.springidol.Performer.perform(..))and !bean(juggler)"
-                        method="takeSeats" /> <!-- Перед выступлением -->
-            <aop:before pointcut=
-                                "execution(* com.springinaction.springidol.Performer.perform(..))and !bean(juggler)"
-                        method="turnOffCellPhones" /> <!-- Перед выступлением -->
-            <aop:after-returning pointcut=
-                                         "execution(* com.springinaction.springidol.Performer.perform(..)) and !bean(juggler)"
-                                 method="applaud" /> <!-- После выступления -->
-            <aop:after-throwing pointcut=
-                                        "execution(* com.springinaction.springidol.Performer.perform(..))and !bean(juggler)"
-                                method="demandRefund" /> <!-- После неудачного выступления -->
+<!--    <aop:config>
+        <aop:pointcut id="performance" expression="execution(* com.springinaction.springidol.Performer.perform(..))and not bean(juggler)"/>
+        <aop:aspect ref="audience"> &lt;!&ndash; Ссылка на компонент audience &ndash;&gt;
+            &lt;!&ndash; Определение среза множества точек сопряжения &ndash;&gt;
+            <aop:before pointcut-ref="performance" method="takeSeats" /> &lt;!&ndash; Перед выступлением !!!!!!! juggler не исключается&ndash;&gt;
+            <aop:before pointcut-ref="performance" method="turnOffCellPhones" /> &lt;!&ndash; Перед выступлением &ndash;&gt;
+            <aop:after-returning pointcut-ref="performance" method="applaud" /> &lt;!&ndash; После выступления &ndash;&gt;
+            <aop:after-throwing pointcut-ref="performance" method="demandRefund" /> &lt;!&ndash; После неудачного выступления &ndash;&gt;
         </aop:aspect>
 
+    </aop:config>-->
+
+    <aop:config>
+        <aop:aspect ref="audience">
+            <aop:pointcut id="performance2" expression=
+                    "execution(* com.springinaction.springidol.Performer.perform(..)) and not bean(juggler)"
+                    />
+            <!-- Совет, выполняемый и до, и после -->
+            <aop:around
+                    pointcut-ref="performance2"
+                    method="watchPerformance"/>
+        </aop:aspect>
     </aop:config>
 
 </beans>
