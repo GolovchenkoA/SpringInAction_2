@@ -24,11 +24,11 @@ import java.util.Map;
  */
 public class Go {
 
-
     public static void main(String[] args) {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         Instrumentalist eddy = (Instrumentalist)context.getBean("instrumentalist");
+
         eddy.perform();
     }
 }
