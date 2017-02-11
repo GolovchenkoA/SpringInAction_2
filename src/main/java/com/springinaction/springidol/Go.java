@@ -27,22 +27,26 @@ public class Go {
     public static void main(String[] args) {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        Performer eddy = (Performer)context.getBean("instrumentalist");
+/*        Performer eddy = (Performer)context.getBean("instrumentalist");
 
         try {
             eddy.perform();
         } catch (PerformanceException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         Performer bob = (Performer)context.getBean("juggler");
 
+
         try {
             bob.perform();
+
+            ((Contestant)bob).receiveAward(); // Bob jungling and tell "Why, thank you all very much!"
         } catch (PerformanceException e) {
             e.printStackTrace();
         }
+
 
     }
 }
